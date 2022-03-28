@@ -5,5 +5,6 @@ namespace Infrastructure
 {
     public class InMemory
     {
-        public static List<IMemoryItem> _inMemory { get; set; }
+        //public static List<T> _inMemory { get; set; }
+    }
 }

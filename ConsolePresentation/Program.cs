@@ -2,10 +2,18 @@
 using FindPetOwner;
 using Domain;
 
+{
+    User user = new();
+    user.FirstName = "John";
+    Console.WriteLine(user.FirstName);
+    Console.WriteLine(user.Id);
+    FoundPetPost foundPost = new();
+    //foundPost.Status = Status.open;
+    foundPost.User = user;
+    Console.WriteLine(foundPost.User);
+    Console.WriteLine(foundPost.Status);
+    SignUpPost signUpPost = new();
 
-RegularUser user = new(1,"john", "doe","");
-Console.WriteLine(user.FirstName);
-FoundPetPost post = new(user);
-Console.WriteLine(post.user.FirstName);
-Console.WriteLine(post.Status);
+
+}
 
