@@ -18,7 +18,7 @@ namespace Domain
       public string Comment { get; set; }
       public string Address { get; set; }
       public List<double> GPScoordinates { get; set; }
-      public Status Status { get; set; } = Status.open;
+      public Status Status { get; set; } //default se seteaza in application? 
     }
 
     public enum Status { open, inProgress, closed };

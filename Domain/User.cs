@@ -15,7 +15,7 @@ namespace FindPetOwner
 
         public override string ToString()
         {
-            return $"{this.FirstName} {this.LastName}";
+            return $"{FirstName} {LastName}";
         }
     }
 }
