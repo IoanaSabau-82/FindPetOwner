@@ -9,10 +9,10 @@ using Domain;
     Console.WriteLine(user.Id);
     FoundPetPost foundPost = new();
     //foundPost.Status = Status.open;
-    foundPost.User = user;
-    Console.WriteLine(foundPost.User);
-    Console.WriteLine(foundPost.Status);
-    SignUpPost signUpPost = new();
+    foundPost.CreatedBy = user;
+    Console.WriteLine(foundPost.CreatedBy);
+    Console.WriteLine(foundPost.PostStatus);
+    AssignVolunteer signUpPost = new();
 
 
 }
