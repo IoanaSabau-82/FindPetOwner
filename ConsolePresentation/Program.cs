@@ -3,7 +3,10 @@ using FindPetOwner;
 using Domain;
 
 {
-    User user = new();
+    var user = new User();
+    var user1 = new User();
+    user.Id = Guid.NewGuid();
+
     user.FirstName = "John";
     Console.WriteLine(user.FirstName);
     Console.WriteLine(user.Id);
@@ -12,7 +15,8 @@ using Domain;
     foundPost.CreatedBy = user;
     Console.WriteLine(foundPost.CreatedBy);
     Console.WriteLine(foundPost.PostStatus);
-    AssignVolunteer signUpPost = new();
+    Console.WriteLine(foundPost.PostStatus);
+    
 
 
 }

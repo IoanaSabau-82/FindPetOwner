@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Domain.Enums;
 
 namespace Domain
 {
     public class FoundPetPost
-    { 
+    {
+        public Guid Id { get; set; }
         public User CreatedBy { get; set; }
         public Dictionary<int, object> Pictures { get; set; }
         public string Phone { get; set; }

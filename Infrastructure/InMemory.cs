@@ -6,8 +6,8 @@ namespace Infrastructure
 {
     public class InMemory
     {
-        public static List<User> InMemoryUser { get; set; }
-        public static List<FoundPetPost> InMemoryPost { get; set; }
-        public static List<AssignVolunteer> InMemoryAssignedToPost { get; set; }
+        public static List<User> InMemoryUser = new ();
+        public static List<FoundPetPost> InMemoryPost = new();
+        public static List<AssignedVolunteer> InMemoryAssignedToPost = new();
     }
 }
