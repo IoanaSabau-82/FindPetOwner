@@ -12,7 +12,7 @@ namespace Application
         IEnumerable<FoundPetPost> GetPosts();
         FoundPetPost GetPost(Guid id);
         void CreatePost(FoundPetPost post);
-        void UpdatePost(FoundPetPost post);
-        void DeletePost(FoundPetPost post);
+        void UpdatePost(Guid id);
+        void DeletePost(Guid id);
     }
 }

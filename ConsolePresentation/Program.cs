@@ -15,8 +15,6 @@ using Domain;
     foundPost.CreatedBy = user;
     Console.WriteLine(foundPost.CreatedBy);
     Console.WriteLine(foundPost.PostStatus);
-    Console.WriteLine(foundPost.PostStatus);
-    
 
 
 }

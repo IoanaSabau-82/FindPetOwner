@@ -18,6 +18,7 @@ namespace Domain
         public string Address { get; set; }
         public List<double> GPScoordinates { get; set; }
         public PostStatus PostStatus { get; set; }
+        public ulong? CipId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }

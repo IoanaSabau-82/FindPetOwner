@@ -19,8 +19,6 @@
     <Folder Include="AssignedVolunteers\Queries\" />
     <Folder Include="FoundPetPosts\Commands\CreateFoundPetPost\" />
     <Folder Include="FoundPetPosts\Queries\" />
-    <Folder Include="Users\Commands\CreateUser\" />
-    <Folder Include="Users\Queries\" />
   </ItemGroup>
 
 </Project>

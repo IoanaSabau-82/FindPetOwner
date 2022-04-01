@@ -13,18 +13,18 @@ namespace Infrastructure
         public void CreateUser(User user)
         {
             user.Id= Guid.NewGuid();
-            InMemory.InMemoryUser.Add(user);
+            InMemory.User.Add(user);
         }
 
         public User GetUser(Guid id)
         {
-            return InMemory.InMemoryUser.FirstOrDefault(x => x.Id == id);//fac si aici doar cu first si try. catch?
+            return InMemory.User.FirstOrDefault(x => x.Id == id)?? throw new InvalidOperationException($"User with id {id} not found");
         }
 
         public void UpdateUser(Guid id)
         {
-            var toUpdate = InMemory.InMemoryUser.FirstOrDefault(x => x.Id == id);
-            if (toUpdate == null) throw new InvalidOperationException($"User with id {id} not found");
+            var toUpdate = InMemory.User.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
+            //TODO: implement update mechanism
             toUpdate.FirstName=Console.ReadLine();
         }
     }
