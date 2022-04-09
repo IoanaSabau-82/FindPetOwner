@@ -1,21 +1,32 @@
-﻿// See https://aka.ms/new-console-template for more information
-using FindPetOwner;
+﻿using Application;
+using Application.FoundPetPosts.Queries;
+using Application.Users.Queries;
 using Domain;
+using FindPetOwner;
+using Infrastructure;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
+
+namespace ConsolePresentation
 {
-    var user = new User();
-    var user1 = new User();
-    user.Id = Guid.NewGuid();
+    internal class Program
+    {
+        private static async Task Main(string[] args)
+        {
+            var diContainer = new ServiceCollection()
+                .AddMediatR(typeof(IUserRepository).Assembly)
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IFoundPetPostRepository, FoundPetPostRepository>()
+                .AddScoped<IAssignedVolunteerRepository, AssignedVolunteerRepository>()
+                .BuildServiceProvider();
 
-    user.FirstName = "John";
-    Console.WriteLine(user.FirstName);
-    Console.WriteLine(user.Id);
-    FoundPetPost foundPost = new();
-    //foundPost.Status = Status.open;
-    foundPost.CreatedBy = user;
-    Console.WriteLine(foundPost.CreatedBy);
-    Console.WriteLine(foundPost.PostStatus);
+            var mediator = diContainer.GetRequiredService<IMediator>();
 
 
+            var users = await mediator.Send(new GetUserQuery(InMemory.User[0].Id));
+            Console.WriteLine(users);
+
+        }
+    }
 }
-

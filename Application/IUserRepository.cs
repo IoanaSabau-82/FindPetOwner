@@ -11,6 +11,6 @@ namespace Application
     {
         User GetUser(Guid id);
         void CreateUser(User user);
-        void UpdateUser(Guid id);
+        void UpdateUser(User user);
     }
 }

@@ -9,16 +9,16 @@ using FindPetOwner;
 
 namespace Application.Users.Commands.CreateUser
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
+    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, User>
     {
         private readonly IUserRepository _repository;
 
-        public CreateUserCommandHandler(IUserRepository repository)
+        public UpdateUserCommandHandler(IUserRepository repository)
         {
             _repository = repository;
         }
 
-        public Task<User> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+        public Task<User> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
         {
             var user = new User
             {
@@ -30,7 +30,7 @@ namespace Application.Users.Commands.CreateUser
 
             };
 
-            _repository.CreateUser(user);
+            _repository.UpdateUser(user);
 
             return Task.FromResult(user);
         }

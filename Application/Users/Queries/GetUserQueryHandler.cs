@@ -17,16 +17,10 @@ namespace Application.Users.Queries
             _repository = repository;
         }
 
-        //cum sa ii dau atunci idul??
-        public Task<User> Handle(Guid id, GetUserQuery query, CancellationToken cancellationToken)
+        public Task<User> Handle(GetUserQuery query, CancellationToken cancellationToken)
         {
-            var result = _repository.GetUser(id);
+            var result = _repository.GetUser(query.Id);
             return Task.FromResult(result);
-        }
-
-        public Task<User> Handle(GetUserQuery request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
         }
     }
 }

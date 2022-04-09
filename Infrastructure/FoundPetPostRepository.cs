@@ -19,19 +19,14 @@ namespace Infrastructure
         public void DeletePost(Guid id)
         {
             var toDelete = InMemory.Post.FirstOrDefault(x => x.Id == id);
+
             if (toDelete == null) 
             {
                 throw new InvalidOperationException($"Post with id {id} not found");
             }
-            else if (toDelete.PostStatus == 0)
-            {
-                InMemory.Post.Remove(toDelete);
-            }
-            else
-            {
-                //TODO: throw the proper exception or create custom one
-                throw new Exception();
-            }
+
+            InMemory.Post.Remove(toDelete);
+
         }
 
         public FoundPetPost GetPost(Guid id)
@@ -44,10 +39,18 @@ namespace Infrastructure
             return InMemory.Post;
         }
 
-        public void UpdatePost(Guid id)
+        public void UpdatePost(FoundPetPost post)
         {
-            var toUpdate = InMemory.Post.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
-            //TODO: implement update mechanism
+            var toUpdate = InMemory.Post.FirstOrDefault(x => x.Id == post.Id) ?? throw new InvalidOperationException($"User with id {post.Id} not found");
+            toUpdate.CreatedBy = post.CreatedBy;
+            toUpdate.Pictures = post.Pictures;
+            toUpdate.Phone = post.Phone;
+            toUpdate.Availability = post.Availability;
+            toUpdate.Comment = post.Comment;
+            toUpdate.Address = post.Address;
+            toUpdate.GPScoordinates = post.GPScoordinates;
+            toUpdate.PostStatus = post.PostStatus;
+            toUpdate.CipId = post.CipId;
         }
     }
 }

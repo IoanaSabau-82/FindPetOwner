@@ -5,16 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
 
-namespace Application.Users.Queries
+namespace Application.FoundPetPosts.Queries
 {
-    public class GetUserQuery:IRequest<User>
+    public class GetFoundPetPostQuery:IRequest<FoundPetPost>
     {
-        public GetUserQuery(Guid id)
-        {
-            Id = id;
-        }
-
         public Guid Id { get; set; }
     }
 }

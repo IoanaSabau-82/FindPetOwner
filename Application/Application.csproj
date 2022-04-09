@@ -14,11 +14,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="AssignedVolunteers\Commands\CreateAssignedVolunteers\" />
-    <Folder Include="AssignedVolunteers\Queries\" />
-    <Folder Include="FoundPetPosts\Commands\CreateFoundPetPost\" />
-    <Folder Include="FoundPetPosts\Queries\" />
-  </ItemGroup>
-
 </Project>
