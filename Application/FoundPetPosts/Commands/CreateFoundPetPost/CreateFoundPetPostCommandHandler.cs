@@ -22,12 +22,14 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
             var post = new FoundPetPost
             {
                 CreatedBy = request.CreatedBy,
-                Pictures = request.Pictures,
+                Picture = request.Picture,
                 Phone = request.Phone,
-                Availability = request.Availability,
+                AvailabilityStart = request.AvailabilityStart,
+                AvailabilityEnd = request.AvailabilityEnd,
                 Comment = request.Comment,
                 Address = request.Address,
-                GPScoordinates = request.GPScoordinates,
+                Latitude = request.Latitude,
+                Longitude = request.Longitude,
                 PostStatus = request.PostStatus,
             };
 

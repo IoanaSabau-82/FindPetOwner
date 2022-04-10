@@ -1,5 +1,6 @@
 ﻿using Application;
 using FindPetOwner;
+using Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,28 @@ namespace Infrastructure
 {
     public class UserRepository : IUserRepository
     {
+
+        private readonly FindPetOwnerContext _context;
+
+        public UserRepository(FindPetOwnerContext context)
+        { 
+            _context = context;
+        }
+
         public void CreateUser(User user)
         {
             user.Id = Guid.NewGuid();
-            InMemory.User.Add(user);
+            _context.Users.Add(user);
         }
 
         public User GetUser(Guid id)
         {
-            return InMemory.User.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
+            return _context.Users.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
         }
 
         public void UpdateUser(User user)
         {
-            var toUpdate = InMemory.User.FirstOrDefault(x => x.Id == user.Id) ?? throw new InvalidOperationException($"User with id {user.Id} not found");
+            var toUpdate = _context.Users.FirstOrDefault(x => x.Id == user.Id) ?? throw new InvalidOperationException($"User with id {user.Id} not found");
             toUpdate.FirstName = user.FirstName;
             toUpdate.LastName = user.LastName;
             toUpdate.Email = user.Email;

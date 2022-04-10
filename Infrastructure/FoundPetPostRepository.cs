@@ -1,5 +1,6 @@
 ﻿using Application;
 using Domain;
+using Infrastructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,18 @@ namespace Infrastructure
 {
     public class FoundPetPostRepository : IFoundPetPostRepository
     {
+
+        private readonly FindPetOwnerContext _context;
+
+        public FoundPetPostRepository(FindPetOwnerContext context)
+        {
+            _context = context;
+        }
+
         public void CreatePost(FoundPetPost post)
         {
             post.Id = Guid.NewGuid();
-            InMemory.Post.Add(post);
+            _context.FoundPetPosts.Add(post);
         }
 
         public void DeletePost(Guid id)
@@ -25,30 +34,32 @@ namespace Infrastructure
                 throw new InvalidOperationException($"Post with id {id} not found");
             }
 
-            InMemory.Post.Remove(toDelete);
+            _context.FoundPetPosts.Remove(toDelete);
 
         }
 
         public FoundPetPost GetPost(Guid id)
         {
-            return InMemory.Post.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Post with id {id} not found");
+            return _context.FoundPetPosts.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Post with id {id} not found");
         }
 
         public IEnumerable<FoundPetPost> GetPosts()
         {
-            return InMemory.Post;
+            return _context.FoundPetPosts;
         }
 
         public void UpdatePost(FoundPetPost post)
         {
-            var toUpdate = InMemory.Post.FirstOrDefault(x => x.Id == post.Id) ?? throw new InvalidOperationException($"User with id {post.Id} not found");
+            var toUpdate = _context.FoundPetPosts.FirstOrDefault(x => x.Id == post.Id) ?? throw new InvalidOperationException($"User with id {post.Id} not found");
             toUpdate.CreatedBy = post.CreatedBy;
-            toUpdate.Pictures = post.Pictures;
+            toUpdate.Picture = post.Picture;
             toUpdate.Phone = post.Phone;
-            toUpdate.Availability = post.Availability;
+            toUpdate.AvailabilityStart = post.AvailabilityStart;
+            toUpdate.AvailabilityEnd = post.AvailabilityEnd;
             toUpdate.Comment = post.Comment;
             toUpdate.Address = post.Address;
-            toUpdate.GPScoordinates = post.GPScoordinates;
+            toUpdate.Latitude = post.Latitude;
+            toUpdate.Longitude = post.Longitude;
             toUpdate.PostStatus = post.PostStatus;
             toUpdate.CipId = post.CipId;
         }
