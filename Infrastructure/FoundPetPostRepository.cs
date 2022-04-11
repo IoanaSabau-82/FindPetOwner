@@ -23,6 +23,7 @@ namespace Infrastructure
         {
             post.Id = Guid.NewGuid();
             _context.FoundPetPosts.Add(post);
+            _context.SaveChanges();
         }
 
         public void DeletePost(Guid id)
@@ -35,6 +36,7 @@ namespace Infrastructure
             }
 
             _context.FoundPetPosts.Remove(toDelete);
+            _context.SaveChanges();
 
         }
 
@@ -52,7 +54,7 @@ namespace Infrastructure
         {
             var toUpdate = _context.FoundPetPosts.FirstOrDefault(x => x.Id == post.Id) ?? throw new InvalidOperationException($"User with id {post.Id} not found");
             toUpdate.CreatedBy = post.CreatedBy;
-            toUpdate.Picture = post.Picture;
+            toUpdate.Pictures = post.Pictures;
             toUpdate.Phone = post.Phone;
             toUpdate.AvailabilityStart = post.AvailabilityStart;
             toUpdate.AvailabilityEnd = post.AvailabilityEnd;
@@ -62,6 +64,7 @@ namespace Infrastructure
             toUpdate.Longitude = post.Longitude;
             toUpdate.PostStatus = post.PostStatus;
             toUpdate.CipId = post.CipId;
+            _context.SaveChanges();
         }
     }
 }

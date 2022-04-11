@@ -23,11 +23,13 @@ namespace Infrastructure
         {
             assignedVolunteer.Id = Guid.NewGuid();
             _context.AssignedVolunteers.Add(assignedVolunteer);
+            _context.SaveChanges();
         }
 
         public void DeleteAssignment(Guid id)//see note in the IRepository
         {
             var toDelete = _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Assignment with id {id} not found");
+            _context.SaveChanges();
         }
 
         public AssignedVolunteer GetAssignment(Guid id)
@@ -51,6 +53,7 @@ namespace Infrastructure
             toUpdate.Post = assignedVolunteer.Post;
             toUpdate.ScheduledTime = assignedVolunteer.ScheduledTime;
             toUpdate.AssignedStatus = assignedVolunteer.AssignedStatus;
+            _context.SaveChanges();
         }
     }
 }

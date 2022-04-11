@@ -22,7 +22,7 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
             var post = new FoundPetPost
             {
                 CreatedBy = request.CreatedBy,
-                Picture = request.Picture,
+                Pictures = request.Pictures,
                 Phone = request.Phone,
                 AvailabilityStart = request.AvailabilityStart,
                 AvailabilityEnd = request.AvailabilityEnd,

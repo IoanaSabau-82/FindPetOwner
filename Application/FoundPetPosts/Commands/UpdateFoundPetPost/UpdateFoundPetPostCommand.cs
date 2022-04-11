@@ -12,7 +12,7 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
     public class UpdateFoundPetPostCommand: IRequest<FoundPetPost>
     {
         public User CreatedBy { get; set; }
-        public byte Picture { get; set; }
+        public List<Picture> Pictures { get; set; }
         public string Phone { get; set; }
         public DateTime AvailabilityStart { get; set; }
         public DateTime AvailabilityEnd { get; set; }

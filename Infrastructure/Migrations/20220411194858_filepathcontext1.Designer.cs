@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(FindPetOwnerContext))]
-    [Migration("20220409203239_update_gps_coordinates_to_latitude_and_longitude")]
-    partial class update_gps_coordinates_to_latitude_and_longitude
+    [Migration("20220411194858_filepathcontext1")]
+    partial class filepathcontext1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,7 +36,7 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("AssignedToId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("PostId")
@@ -45,7 +45,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("ScheduledTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -64,45 +64,39 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("AvailabilityEnd")
+                    b.Property<DateTime?>("AvailabilityEnd")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("AvailabilityStart")
+                    b.Property<DateTime?>("AvailabilityStart")
                         .HasColumnType("datetime2");
 
                     b.Property<long?>("CipId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("Latitude")
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("Latitude")
                         .HasColumnType("float");
 
-                    b.Property<double>("Longitude")
+                    b.Property<double?>("Longitude")
                         .HasColumnType("float");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte>("Picture")
-                        .HasColumnType("tinyint");
-
-                    b.Property<int>("PostStatus")
+                    b.Property<int?>("PostStatus")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -110,6 +104,33 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("FoundPetPosts");
+                });
+
+            modelBuilder.Entity("Domain.Picture", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FilePath")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("nvarchar(max)")
+                        .HasComputedColumnSql("C:\\Assignments\\FindPetOwner\\Pictures\\txt");
+
+                    b.Property<Guid?>("FoundPetPostId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FoundPetPostId");
+
+                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("FindPetOwner.User", b =>
@@ -122,7 +143,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -141,7 +162,7 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -177,6 +198,18 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("Domain.Picture", b =>
+                {
+                    b.HasOne("Domain.FoundPetPost", null)
+                        .WithMany("Pictures")
+                        .HasForeignKey("FoundPetPostId");
+                });
+
+            modelBuilder.Entity("Domain.FoundPetPost", b =>
+                {
+                    b.Navigation("Pictures");
                 });
 #pragma warning restore 612, 618
         }

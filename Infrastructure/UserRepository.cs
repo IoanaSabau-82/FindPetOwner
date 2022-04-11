@@ -12,7 +12,7 @@ namespace Infrastructure
     public class UserRepository : IUserRepository
     {
 
-        private FindPetOwnerContext _context = new FindPetOwnerContext();
+        private readonly FindPetOwnerContext _context = new();
 
         public void CreateUser(User user)
         {
