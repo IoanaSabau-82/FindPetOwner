@@ -1,6 +1,7 @@
 ﻿using Domain;
 using FindPetOwner;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,9 @@ namespace Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=DESKTOP-A30MN5U\\SQLEXPRESS;Database=FindPetOwnerDatabase;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=DESKTOP-A30MN5U\\SQLEXPRESS;Database=FindPetOwnerDatabase;Trusted_Connection=True;")
+            .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
+            .EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

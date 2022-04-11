@@ -27,7 +27,7 @@ namespace Infrastructure
 
         public void DeletePost(Guid id)
         {
-            var toDelete = InMemory.Post.FirstOrDefault(x => x.Id == id);
+            var toDelete = _context.FoundPetPosts.FirstOrDefault(x => x.Id == id);
 
             if (toDelete == null) 
             {
