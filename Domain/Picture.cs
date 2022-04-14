@@ -9,12 +9,18 @@ namespace Domain
 {
     public class Picture :BaseEntity
     {
+        public Picture(string name, string filePath)
+        {
+            Name = name;
+            FilePath = filePath;
+        }
+
         public Guid Id { get; set; }
-        [NotMapped]
         public string Name { get; set; }
-        public string FilePath { get; private set; }
+        public string FilePath { get; set; }
 
         public FoundPetPost Post { get; set; }
+
         
     }
 }

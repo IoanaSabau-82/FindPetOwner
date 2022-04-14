@@ -36,7 +36,6 @@ namespace Infrastructure.Data
                 .WithOne(picture => picture.Post)
                 .OnDelete(DeleteBehavior.NoAction);
 
-
             modelBuilder.Entity<User>()
                 .Property(p => p.FirstName)
                 .HasColumnName("First name");
