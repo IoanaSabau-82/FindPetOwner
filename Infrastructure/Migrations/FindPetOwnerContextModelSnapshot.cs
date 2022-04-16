@@ -110,11 +110,7 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("FilePath")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -123,9 +119,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -213,7 +206,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.FoundPetPost", "Post")
                         .WithMany("Pictures")
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");

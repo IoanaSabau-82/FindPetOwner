@@ -14,11 +14,11 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Firstname = table.Column<string>(name: "First name", type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Lastname = table.Column<string>(name: "Last name", type: "nvarchar(25)", maxLength: 25, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -90,17 +90,19 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FoundPetPostId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FilePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pictures", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pictures_FoundPetPosts_FoundPetPostId",
-                        column: x => x.FoundPetPostId,
+                        name: "FK_Pictures_FoundPetPosts_PostId",
+                        column: x => x.PostId,
                         principalTable: "FoundPetPosts",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -119,9 +121,9 @@ namespace Infrastructure.Migrations
                 column: "CreatedById");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pictures_FoundPetPostId",
+                name: "IX_Pictures_PostId",
                 table: "Pictures",
-                column: "FoundPetPostId");
+                column: "PostId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

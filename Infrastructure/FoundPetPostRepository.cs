@@ -50,6 +50,12 @@ namespace Infrastructure
             return _context.FoundPetPosts;
         }
 
+        public void UpdatePicture(Picture postPicture)
+        {
+            _context.Pictures.Update(postPicture);
+            _context.SaveChanges();
+        }
+
         public void UpdatePost(FoundPetPost post)
         {
             var toUpdate = _context.FoundPetPosts.FirstOrDefault(x => x.Id == post.Id) ?? throw new InvalidOperationException($"User with id {post.Id} not found");

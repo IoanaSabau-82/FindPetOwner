@@ -19,15 +19,11 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
 
         public Task<FoundPetPost> Handle(CreateFoundPetPostCommand request, CancellationToken cancellationToken)
         {
-
-            //var pictures = request.Pictures.Select(pictureDto => new Picture(pictureDto.Name, pictureDto.FilePath)); pt asta ar treb sa existe deja in db
-            //ar trebui sa am in repository FoundpetPost o metoda de add pictures? care sa reprezinte salvarea in bd?
-            //dar cum face legatura cu post inainte de a salva?
            
             var post = new FoundPetPost
             {
-                //CreatedBy = request.CreatedBy,
-                //Pictures = request.Pictures,
+                CreatedBy = request.CreatedBy,
+                Pictures = request.Pictures,
                 Phone = request.Phone,
                 AvailabilityStart = request.AvailabilityStart,
                 AvailabilityEnd = request.AvailabilityEnd,
@@ -39,6 +35,24 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
             };
 
             _repository.CreatePost(post);
+
+            var folderName = @"C:\Assignments\FindPetOwner\Pictures";
+            var postDirPath = Path.Combine(folderName, post.Id.ToString());
+            Directory.CreateDirectory(postDirPath);
+
+            foreach(Picture picture in post.Pictures)
+            {
+                var filePath = Path.Combine(postDirPath, picture.Name + ".txt");
+                picture.FilePath = filePath;
+                _repository.UpdatePicture(picture);
+                var fileStream = File.Create(filePath);
+                using var sw = new StreamWriter(fileStream);
+                    sw.WriteLineAsync($"this is {picture.Name}");
+                    
+            }
+
+
+             
 
             return Task.FromResult(post);
         }

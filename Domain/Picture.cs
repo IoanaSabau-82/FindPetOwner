@@ -7,20 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Picture :BaseEntity
-    {
-        public Picture(string name, string filePath)
-        {
-            Name = name;
-            FilePath = filePath;
-        }
-
+    public class Picture
+    { 
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
 
-        public FoundPetPost Post { get; set; }
-
-        
+        public FoundPetPost Post { get; set; } 
     }
 }

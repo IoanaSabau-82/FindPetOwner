@@ -31,10 +31,10 @@ namespace Infrastructure.Data
                 .Property(u => u.FilePath)
                 .HasComputedColumnSql(Path.Combine(@"C:\Assignments\FindPetOwner\Pictures",[Pictures.Name]+"txt"));*/
 
-            modelBuilder.Entity<FoundPetPost>()
+            /*modelBuilder.Entity<FoundPetPost>()
                 .HasMany(post => post.Pictures)
                 .WithOne(picture => picture.Post)
-                .OnDelete(DeleteBehavior.NoAction);
+                .OnDelete(DeleteBehavior.NoAction);*/
 
             modelBuilder.Entity<User>()
                 .Property(p => p.FirstName)

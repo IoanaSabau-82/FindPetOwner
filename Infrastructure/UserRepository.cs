@@ -1,6 +1,7 @@
 ﻿using Application;
 using FindPetOwner;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,12 @@ namespace Infrastructure
     public class UserRepository : IUserRepository
     {
 
-        private readonly FindPetOwnerContext _context = new();
+        private readonly FindPetOwnerContext _context;
+
+        public UserRepository(FindPetOwnerContext context)
+        {
+            _context = context;
+        }
 
         public void CreateUser(User user)
         {
@@ -23,7 +29,10 @@ namespace Infrastructure
 
         public User GetUser(Guid id)
         {
-            return _context.Users.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
+            return _context.Users
+                .First(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found")
+                ;
+          
         }
 
         public void UpdateUser(User user)
