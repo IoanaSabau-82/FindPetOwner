@@ -50,10 +50,6 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
                     sw.WriteLineAsync($"this is {picture.Name}");
                     
             }
-
-
-             
-
             return Task.FromResult(post);
         }
     }
