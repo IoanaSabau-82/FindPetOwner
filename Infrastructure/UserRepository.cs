@@ -38,6 +38,7 @@ namespace Infrastructure
         public void UpdateUser(User user)
         {
             var toUpdate = _context.Users.FirstOrDefault(x => x.Id == user.Id) ?? throw new InvalidOperationException($"User with id {user.Id} not found");
+
             toUpdate.FirstName = user.FirstName;
             toUpdate.LastName = user.LastName;
             toUpdate.Email = user.Email;

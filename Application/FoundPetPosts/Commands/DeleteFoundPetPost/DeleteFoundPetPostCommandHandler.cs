@@ -17,17 +17,16 @@ namespace Application.FoundPetPosts.Commands.DeleteFoundPetPost
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(DeleteFoundPetPostCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeleteFoundPetPostCommand request, CancellationToken cancellationToken) 
         {
-            if (request.post.PostStatus != PostStatus.Open)
-                
+            if (request.Post.PostStatus != PostStatus.Open)
+
             {
                 throw new InvalidOperationException();
             }
 
-            _repository.DeletePost(request.post.Id);
+            _repository.DeletePost(request.Post.Id);
             return Unit.Value;
-      
         }
     }
 }

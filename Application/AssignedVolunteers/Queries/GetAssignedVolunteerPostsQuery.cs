@@ -11,6 +11,6 @@ namespace Application.AssignedVolunteers.Queries
 {
     public class GetAssignedVolunteerPostsQuery:IRequest<IEnumerable<AssignedVolunteer>>
     {
-        public User AssignedTo { get; set; }
+        public Guid Id { get; set; }
     }
 }

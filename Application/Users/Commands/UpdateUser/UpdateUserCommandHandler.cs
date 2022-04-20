@@ -22,6 +22,7 @@ namespace Application.Users.Commands.CreateUser
         {
             var user = new User
             {
+                Id = command.Id,
                 FirstName = command.FirstName,
                 LastName = command.LastName,
                 Email = command.Email,

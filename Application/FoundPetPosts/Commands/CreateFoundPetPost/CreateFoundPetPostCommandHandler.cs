@@ -23,7 +23,7 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
             var post = new FoundPetPost
             {
                 CreatedBy = request.CreatedBy,
-                Pictures = request.Pictures,
+                //Pictures = request.Pictures,
                 Phone = request.Phone,
                 AvailabilityStart = request.AvailabilityStart,
                 AvailabilityEnd = request.AvailabilityEnd,
@@ -36,7 +36,7 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
 
             _repository.CreatePost(post);
 
-            var folderName = @"C:\Assignments\FindPetOwner\Pictures";
+           /* var folderName = @"C:\Assignments\FindPetOwner\Pictures";
             var postDirPath = Path.Combine(folderName, post.Id.ToString());
             Directory.CreateDirectory(postDirPath);
 
@@ -49,7 +49,7 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
                 using var sw = new StreamWriter(fileStream);
                     sw.WriteLineAsync($"this is {picture.Name}");
                     
-            }
+            }*/
             return Task.FromResult(post);
         }
     }

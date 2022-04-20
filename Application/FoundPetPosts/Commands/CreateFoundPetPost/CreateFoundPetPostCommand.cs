@@ -12,8 +12,7 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
     public class CreateFoundPetPostCommand: IRequest<FoundPetPost>
     {
         public User CreatedBy { get; set; }
-        public List<Picture> Pictures { get; set; }
-        //public List<PictureDto> Pictures { get; set; } = null;
+        public List<Picture> Pictures { get; set; } = null;
         public string Phone { get; set; }
         public DateTime AvailabilityStart { get; set; }
         public DateTime AvailabilityEnd { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Application;
 using Domain;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace Infrastructure
             /* ce anume returnez aici? ca nu mai e de assignedvolunteer dupa join
             var result = InMemory.AssignedToPost.Join(InMemory.Post, 
                 assignment => assignment.Post.Id, post => post.Id, (assignment, post) => (assignment, post)).Where(x => x.assignment.AssignedTo.Id == id); //de vazut de care campuri este nevoie*/
-            return _context.AssignedVolunteers.Where(x => x.AssignedTo.Id == id);
+            return _context.AssignedVolunteers.Where(x => x.AssignedTo.Id == id).Include(a => a.AssignedTo);
         }
 
         public void UpdateAssigned(AssignedVolunteer assignedVolunteer)

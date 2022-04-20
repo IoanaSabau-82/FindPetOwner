@@ -13,10 +13,14 @@ namespace Infrastructure.Data
 {
     public class FindPetOwnerContext : DbContext
     {
+
+        public FindPetOwnerContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<FoundPetPost> FoundPetPosts { get; set; }
         public DbSet<AssignedVolunteer> AssignedVolunteers { get; set; }
-        public DbSet<Picture> Pictures { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,9 +30,6 @@ namespace Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Picture>()
-                .Property(u => u.FilePath)
-                .HasComputedColumnSql(Path.Combine(@"C:\Assignments\FindPetOwner\Pictures",[Pictures.Name]+"txt"));*/
 
             /*modelBuilder.Entity<FoundPetPost>()
                 .HasMany(post => post.Pictures)
@@ -42,8 +43,6 @@ namespace Infrastructure.Data
             modelBuilder.Entity<User>()
                 .Property(p => p.LastName)
                 .HasColumnName("Last name");
-
-
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

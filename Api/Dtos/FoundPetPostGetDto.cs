@@ -1,17 +1,10 @@
 ﻿using Domain;
 using FindPetOwner;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
+namespace Api.Dtos
 {
-    public class UpdateFoundPetPostCommand: IRequest<FoundPetPost>
+    public class FoundPetPostGetDto
     {
-        public Guid Id { get; set; }
         public User CreatedBy { get; set; }
         public List<Picture> Pictures { get; set; }
         public string Phone { get; set; }
@@ -19,8 +12,7 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
         public DateTime AvailabilityEnd { get; set; }
         public string Comment { get; set; }
         public string Address { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
         public PostStatus PostStatus { get; set; }
+        public long CipId { get; set; }
     }
 }

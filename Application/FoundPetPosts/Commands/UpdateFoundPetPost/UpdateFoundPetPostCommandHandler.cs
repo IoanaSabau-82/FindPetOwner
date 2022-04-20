@@ -21,6 +21,7 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
         {
             var post = new FoundPetPost
             {
+                Id = request.Id,
                 CreatedBy = request.CreatedBy,
                 Pictures = request.Pictures,
                 Phone = request.Phone,

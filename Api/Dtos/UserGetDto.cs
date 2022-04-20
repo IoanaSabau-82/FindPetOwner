@@ -1,14 +1,6 @@
-﻿using FindPetOwner;
-using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Application.Users.Commands.CreateUser
+﻿namespace Api.Dtos
 {
-    public class UpdateUserCommand: IRequest<User>
+    public class UserGetDto
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

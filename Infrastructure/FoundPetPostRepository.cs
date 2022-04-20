@@ -42,7 +42,8 @@ namespace Infrastructure
 
         public FoundPetPost GetPost(Guid id)
         {
-            return _context.FoundPetPosts.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Post with id {id} not found");
+            return _context.FoundPetPosts
+                .FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Post with id {id} not found");
         }
 
         public IEnumerable<FoundPetPost> GetPosts()
@@ -50,11 +51,11 @@ namespace Infrastructure
             return _context.FoundPetPosts;
         }
 
-        public void UpdatePicture(Picture postPicture)
+        /*public void UpdatePicture(Picture postPicture)
         {
             _context.Pictures.Update(postPicture);
             _context.SaveChanges();
-        }
+        }*/
 
         public void UpdatePost(FoundPetPost post)
         {
