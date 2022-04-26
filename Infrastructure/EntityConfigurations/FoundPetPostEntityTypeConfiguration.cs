@@ -14,9 +14,9 @@ namespace Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<FoundPetPost> postConfiguration)
         {
-            postConfiguration
+            /*postConfiguration
                 .Property(p => p.CreatedBy)
-                .HasColumnName("ID Created by");
+                .HasColumnName("ID Created by");*/
 
             postConfiguration
                 .Property(p => p.Phone)
