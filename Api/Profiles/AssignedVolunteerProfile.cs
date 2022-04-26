@@ -13,6 +13,8 @@ namespace Api.Profiles
             CreateMap<AssignedVolunteerPutPostDto, CreateAssignedVolunteerCommand>();
             CreateMap<AssignedVolunteer, AssignedVolunteerGetDto>()
                 .ReverseMap();
+            CreateMap<AssignedVolunteer, AssignedVolunteerByUserGetDto>()
+                .ReverseMap();
             CreateMap<AssignedVolunteerPutPostDto, UpdateAssignedVolunteerCommand>();
 
         }

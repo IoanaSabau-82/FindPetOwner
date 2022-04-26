@@ -54,10 +54,7 @@ namespace Api.Controllers
         public async Task<IActionResult> DeletePost(Guid id)
         {
 
-            //var myPost = _mapper.Map<FoundPetPost>(post);
-            var post = await _mediator.Send(new GetFoundPetPostQuery { Id = id });
-            var mappedPost = _mapper.Map<FoundPetPost>(post);
-            var command = new DeleteFoundPetPostCommand { Post = mappedPost };
+            var command = new DeleteFoundPetPostCommand { Id = id };
 
             var result = await _mediator.Send(command);
 

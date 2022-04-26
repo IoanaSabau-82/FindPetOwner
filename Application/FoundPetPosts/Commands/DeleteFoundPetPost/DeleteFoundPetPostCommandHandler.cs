@@ -19,13 +19,15 @@ namespace Application.FoundPetPosts.Commands.DeleteFoundPetPost
 
         public async Task<Unit> Handle(DeleteFoundPetPostCommand request, CancellationToken cancellationToken) 
         {
-            if (request.Post.PostStatus != PostStatus.Open)
+            var toDelete = _repository.GetPost(request.Id);
+            
+            if (toDelete.PostStatus != PostStatus.Open)
 
             {
                 throw new InvalidOperationException();
             }
 
-            _repository.DeletePost(request.Post.Id);
+            _repository.DeletePost(toDelete.Id);
             return Unit.Value;
         }
     }

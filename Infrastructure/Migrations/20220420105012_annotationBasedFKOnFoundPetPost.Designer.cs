@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(FindPetOwnerContext))]
-    partial class FindPetOwnerContextModelSnapshot : ModelSnapshot
+    [Migration("20220420105012_annotationBasedFKOnFoundPetPost")]
+    partial class annotationBasedFKOnFoundPetPost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,9 +80,6 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("CreatedById")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -89,6 +88,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<double>("Longitude")
                         .HasColumnType("float");
+
+                    b.Property<Guid>("MadeById")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Phone")
                         .IsRequired()
@@ -102,7 +104,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatedById");
+                    b.HasIndex("MadeById");
 
                     b.ToTable("FoundPetPosts");
                 });
@@ -177,15 +179,15 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.AssignedVolunteer", b =>
                 {
                     b.HasOne("FindPetOwner.User", "AssignedTo")
-                        .WithMany("AssignedVolunteers")
+                        .WithMany()
                         .HasForeignKey("AssignedToId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.FoundPetPost", "Post")
-                        .WithMany("AssignedVolunteers")
+                        .WithMany()
                         .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("AssignedTo");
@@ -197,8 +199,8 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("FindPetOwner.User", "CreatedBy")
                         .WithMany("FoundPetPosts")
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .HasForeignKey("MadeById")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CreatedBy");
@@ -217,15 +219,11 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.FoundPetPost", b =>
                 {
-                    b.Navigation("AssignedVolunteers");
-
                     b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("FindPetOwner.User", b =>
                 {
-                    b.Navigation("AssignedVolunteers");
-
                     b.Navigation("FoundPetPosts");
                 });
 #pragma warning restore 612, 618

@@ -11,6 +11,6 @@ namespace Application.FoundPetPosts.Commands.DeleteFoundPetPost
 {
     public class DeleteFoundPetPostCommand: IRequest
     {
-        public FoundPetPost Post { get; set; }
+        public Guid Id { get; set; }
     }
 }

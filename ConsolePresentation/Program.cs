@@ -31,7 +31,7 @@ namespace ConsolePresentation
             var mediator = diContainer.GetRequiredService<IMediator>();
 
 
-            var user = await mediator.Send(new CreateUserCommand 
+           /* var user = await mediator.Send(new CreateUserCommand 
             {
                 FirstName = "John",
                 LastName = "Doe",
@@ -51,7 +51,10 @@ namespace ConsolePresentation
                         new Picture() { Name = "pic16" },
                     }
                 }
-            );
+            );*/
+
+
+
 
         }
     }

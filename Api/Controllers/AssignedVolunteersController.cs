@@ -52,7 +52,7 @@ namespace Api.Controllers
         {
             var query = new GetAssignedVolunteerPostsQuery { Id = AssignedToid };
             var result = await _mediator.Send(query);
-            var mappedResult = _mapper.Map<List<AssignedVolunteerGetDto>>(result);
+            var mappedResult = _mapper.Map<List<AssignedVolunteerByUserGetDto>>(result);
             return Ok(mappedResult);
 
 

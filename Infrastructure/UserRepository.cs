@@ -30,8 +30,7 @@ namespace Infrastructure
         public User GetUser(Guid id)
         {
             return _context.Users
-                .First(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found")
-                ;
+                .First(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
           
         }
 

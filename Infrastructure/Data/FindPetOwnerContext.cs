@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using Infrastructure.EntityConfigurations;
 
 namespace Infrastructure.Data
 {
@@ -31,18 +32,10 @@ namespace Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            /*modelBuilder.Entity<FoundPetPost>()
-                .HasMany(post => post.Pictures)
-                .WithOne(picture => picture.Post)
-                .OnDelete(DeleteBehavior.NoAction);*/
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FoundPetPostEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AssignedVolunteerEntityTypeConfiguration());
 
-            modelBuilder.Entity<User>()
-                .Property(p => p.FirstName)
-                .HasColumnName("First name");
-
-            modelBuilder.Entity<User>()
-                .Property(p => p.LastName)
-                .HasColumnName("Last name");
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
