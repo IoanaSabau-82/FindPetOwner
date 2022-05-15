@@ -14,24 +14,13 @@ namespace Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<FoundPetPost> postConfiguration)
         {
-            /*postConfiguration
-                .Property(p => p.CreatedBy)
-                .HasColumnName("ID Created by");*/
 
             postConfiguration
                 .Property(p => p.Phone)
                 .HasMaxLength(15);
 
             postConfiguration
-                .Property(p => p.AvailabilityStart)
-                .HasColumnName("Available from");
-
-            postConfiguration
-                .Property(p => p.AvailabilityEnd)
-                .HasColumnName("Available untill");
-
-            postConfiguration
-                .Property(p => p.Comment)
+                .Property(p => p.Details)
                 .HasMaxLength(200);
 
             postConfiguration
@@ -39,8 +28,10 @@ namespace Infrastructure.EntityConfigurations
                 .HasMaxLength(50);
 
             postConfiguration
-                .Property(p => p.CipId)
-                .HasColumnName("Cip ID");
+                .HasMany(x => x.AssignedVolunteers)
+                .WithOne(x => x.Post)
+                .HasForeignKey(x => x.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

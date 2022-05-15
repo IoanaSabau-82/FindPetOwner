@@ -20,12 +20,10 @@ namespace Application.FoundPetPosts.Commands.DeleteFoundPetPost
         public async Task<Unit> Handle(DeleteFoundPetPostCommand request, CancellationToken cancellationToken) 
         {
             var toDelete = _repository.GetPost(request.Id);
-            
+
             if (toDelete.PostStatus != PostStatus.Open)
 
-            {
-                throw new InvalidOperationException();
-            }
+                throw new InvalidOperationException("Post status is no longer 'open'");
 
             _repository.DeletePost(toDelete.Id);
             return Unit.Value;

@@ -19,15 +19,14 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
 
         public Task<FoundPetPost> Handle(CreateFoundPetPostCommand request, CancellationToken cancellationToken)
         {
-           
+
             var post = new FoundPetPost
             {
-                CreatedBy = request.CreatedBy,
-                //Pictures = request.Pictures,
+                CreatedById = request.CreatedById,
+                Pictures = request.Pictures,
                 Phone = request.Phone,
-                AvailabilityStart = request.AvailabilityStart,
-                AvailabilityEnd = request.AvailabilityEnd,
-                Comment = request.Comment,
+                Availability = request.Availability,
+                Details = request.Details,
                 Address = request.Address,
                 Latitude = request.Latitude,
                 Longitude = request.Longitude,
@@ -35,21 +34,6 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
             };
 
             _repository.CreatePost(post);
-
-           /* var folderName = @"C:\Assignments\FindPetOwner\Pictures";
-            var postDirPath = Path.Combine(folderName, post.Id.ToString());
-            Directory.CreateDirectory(postDirPath);
-
-            foreach(Picture picture in post.Pictures)
-            {
-                var filePath = Path.Combine(postDirPath, picture.Name + ".txt");
-                picture.FilePath = filePath;
-                _repository.UpdatePicture(picture);
-                var fileStream = File.Create(filePath);
-                using var sw = new StreamWriter(fileStream);
-                    sw.WriteLineAsync($"this is {picture.Name}");
-                    
-            }*/
             return Task.FromResult(post);
         }
     }

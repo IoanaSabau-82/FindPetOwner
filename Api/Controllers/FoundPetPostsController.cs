@@ -49,6 +49,22 @@ namespace Api.Controllers
             return Ok(mappedResult);
         }
 
+
+        [HttpGet]
+        [Route("{createById}")]
+        public async Task<IActionResult> GetAllByUser(Guid createdById)
+        {
+            var query = new GetFoundPetPostsByUserQuery { CreatedById = createdById };
+            var result = await _mediator.Send(query);
+
+            if (result == null)
+                return NotFound();
+
+            var mappedResult = _mapper.Map<List<FoundPetPostGetDto>>(result);
+            return Ok(mappedResult);
+        }
+
+
         [Route("{id}")]
         [HttpDelete]
         public async Task<IActionResult> DeletePost(Guid id)
@@ -56,11 +72,7 @@ namespace Api.Controllers
 
             var command = new DeleteFoundPetPostCommand { Id = id };
 
-            var result = await _mediator.Send(command);
-
-            if (result == null)
-
-                return NotFound();
+            await _mediator.Send(command);
 
             return NoContent();
         }
@@ -81,13 +93,9 @@ namespace Api.Controllers
             var command = _mapper.Map<UpdateFoundPetPostCommand>(updated);
             command.Id = id;
 
-            var result = await _mediator.Send(command);
-
-            if (result == null)
-                return NotFound();
+            await _mediator.Send(command);
 
             return NoContent();
-
         }
     }
 }

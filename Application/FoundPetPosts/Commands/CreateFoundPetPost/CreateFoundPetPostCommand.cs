@@ -11,12 +11,11 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
 {
     public class CreateFoundPetPostCommand: IRequest<FoundPetPost>
     {
-        public User CreatedBy { get; set; }
-        public List<Picture> Pictures { get; set; } = null;
+        public Guid CreatedById { get; set; }
+        public ICollection<Picture> Pictures{ get; set; }
         public string Phone { get; set; }
-        public DateTime AvailabilityStart { get; set; }
-        public DateTime AvailabilityEnd { get; set; }
-        public string Comment { get; set; }
+        public string Availability { get; set; }
+        public string Details { get; set; }
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

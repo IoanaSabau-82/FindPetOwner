@@ -18,24 +18,8 @@ namespace Infrastructure.EntityConfigurations
             assignedVolunteerConfiguration
                  .HasOne(x => x.Post)
                  .WithMany(x => x.AssignedVolunteers)
-                 .HasForeignKey(x => x.PostId)
-                 .OnDelete(DeleteBehavior.NoAction);
+                 .HasForeignKey(x => x.PostId);
 
-            assignedVolunteerConfiguration
-                .Property(p => p.AssignedToId)
-                .HasColumnName("Assigned To ID");
-
-            assignedVolunteerConfiguration
-                .Property(p => p.PostId)
-                .HasColumnName("Post ID");
-
-            assignedVolunteerConfiguration
-                .Property(p => p.ScheduledTime)
-                .HasColumnName("Scheduled time");
-
-            assignedVolunteerConfiguration
-                .Property(p => p.AssignedStatus)
-                .HasColumnName("Assignment status");
         }
     }
 }

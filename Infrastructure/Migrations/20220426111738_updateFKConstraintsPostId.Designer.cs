@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(FindPetOwnerContext))]
-    partial class FindPetOwnerContextModelSnapshot : ModelSnapshot
+    [Migration("20220426111738_updateFKConstraintsPostId")]
+    partial class updateFKConstraintsPostId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,23 +68,25 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Availability")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("AvailabilityEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("AvailabilityStart")
+                        .HasColumnType("datetime2");
 
                     b.Property<long>("CipId")
                         .HasColumnType("bigint");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<Guid>("CreatedById")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Details")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
 
                     b.Property<double>("Latitude")
                         .HasColumnType("float");
@@ -114,18 +118,21 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FoundPetPostId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("FoundPetPostId");
+                    b.HasIndex("PostId");
 
-                    b.ToTable("Pictures");
+                    b.ToTable("Picture");
                 });
 
             modelBuilder.Entity("FindPetOwner.User", b =>
@@ -203,7 +210,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.FoundPetPost", "Post")
                         .WithMany("Pictures")
-                        .HasForeignKey("FoundPetPostId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

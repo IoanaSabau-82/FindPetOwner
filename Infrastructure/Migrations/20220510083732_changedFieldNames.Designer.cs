@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(FindPetOwnerContext))]
-    partial class FindPetOwnerContextModelSnapshot : ModelSnapshot
+    [Migration("20220510083732_changedFieldNames")]
+    partial class changedFieldNames
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -114,18 +116,21 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("FoundPetPostId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("FilePath")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("FoundPetPostId");
+                    b.HasIndex("PostId");
 
-                    b.ToTable("Pictures");
+                    b.ToTable("Picture");
                 });
 
             modelBuilder.Entity("FindPetOwner.User", b =>
@@ -203,7 +208,7 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.FoundPetPost", "Post")
                         .WithMany("Pictures")
-                        .HasForeignKey("FoundPetPostId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

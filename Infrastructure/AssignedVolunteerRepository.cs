@@ -1,5 +1,6 @@
 ﻿using Application;
 using Domain;
+using Domain.Exceptions;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,14 +30,14 @@ namespace Infrastructure
 
         public void DeleteAssignment(Guid id)//see note in the IRepository
         {
-            var toDelete = _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Assignment with id {id} not found");
+            var toDelete = _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
             _context.SaveChanges();
         }
 
         public AssignedVolunteer GetAssignment(Guid id)
         {
             //si aici va trbui selectata si postarea aferenta
-            return _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Assignment with id {id} not found");
+            return _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
         }
 
         public IEnumerable<AssignedVolunteer> GetAssignmentsToPosts(Guid id)

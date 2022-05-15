@@ -8,7 +8,7 @@ namespace XUnitTests
 {
     public class UserRepositoryFixture
     {
-        private Mock<FindPetOwnerContext> _mockContext;
+        /*private Mock<FindPetOwnerContext> _mockContext;
         private UserRepository _target;
 
         public UserRepositoryFixture()
@@ -40,6 +40,6 @@ namespace XUnitTests
             _mockContext.Verify(x => x.Add(user),Times.Once());
 
 
-        }
+        }*/
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Application;
+using Domain.Exceptions;
 using FindPetOwner;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -30,13 +31,12 @@ namespace Infrastructure
         public User GetUser(Guid id)
         {
             return _context.Users
-                .First(x => x.Id == id) ?? throw new InvalidOperationException($"User with id {id} not found");
-          
+                .FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
         }
 
         public void UpdateUser(User user)
         {
-            var toUpdate = _context.Users.FirstOrDefault(x => x.Id == user.Id) ?? throw new InvalidOperationException($"User with id {user.Id} not found");
+            var toUpdate = GetUser(user.Id); //it's ok or should I use the old query?
 
             toUpdate.FirstName = user.FirstName;
             toUpdate.LastName = user.LastName;

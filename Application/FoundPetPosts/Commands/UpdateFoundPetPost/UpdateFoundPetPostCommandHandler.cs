@@ -11,10 +11,12 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
     public class UpdateFoundPetPostCommandHandler : IRequestHandler<UpdateFoundPetPostCommand, FoundPetPost>
     {
         private readonly IFoundPetPostRepository _repository;
+        private readonly IUserRepository _userRepository;
 
-        public UpdateFoundPetPostCommandHandler(IFoundPetPostRepository repository)
+        public UpdateFoundPetPostCommandHandler(IFoundPetPostRepository repository, IUserRepository userRepository)
         {
             _repository = repository;
+            _userRepository = userRepository;
         }
 
         public Task<FoundPetPost> Handle(UpdateFoundPetPostCommand request, CancellationToken cancellationToken)
@@ -22,12 +24,11 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
             var post = new FoundPetPost
             {
                 Id = request.Id,
-                CreatedBy = request.CreatedBy,
-                Pictures = request.Pictures,
+                CreatedBy = _userRepository.GetUser(request.CreatedById),
+                //Pictures = request.Pictures,
                 Phone = request.Phone,
-                AvailabilityStart = request.AvailabilityStart,
-                AvailabilityEnd = request.AvailabilityEnd,
-                Comment = request.Comment,
+                Availability = request.Availability,
+                Details = request.Details,
                 Address = request.Address,
                 Latitude = request.Latitude,
                 Longitude = request.Longitude,

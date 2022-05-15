@@ -1,6 +1,8 @@
 ﻿using Application;
 using Domain;
+using Domain.Exceptions;
 using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,27 +30,27 @@ namespace Infrastructure
 
         public void DeletePost(Guid id)
         {
-            var toDelete = _context.FoundPetPosts.FirstOrDefault(x => x.Id == id);
-
-            if (toDelete == null) 
-            {
-                throw new InvalidOperationException($"Post with id {id} not found");
-            }
+            var toDelete = GetPost(id);
 
             _context.FoundPetPosts.Remove(toDelete);
             _context.SaveChanges();
-
         }
 
         public FoundPetPost GetPost(Guid id)
         {
-            return _context.FoundPetPosts
-                .FirstOrDefault(x => x.Id == id) ?? throw new InvalidOperationException($"Post with id {id} not found");
+            return _context.FoundPetPosts.Include(x => x.CreatedBy)
+                .FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
         }
 
         public IEnumerable<FoundPetPost> GetPosts()
         {
-            return _context.FoundPetPosts;
+            return _context.FoundPetPosts.Where(x => x.PostStatus != PostStatus.Closed).Include(x => x.CreatedBy);
+        }
+
+        public IEnumerable<FoundPetPost> GetPostsByUser(Guid createdById)
+        {
+            return _context.FoundPetPosts.Where(x => x.PostStatus != PostStatus.Closed && x.CreatedBy.Id == createdById)
+                .Include(x => x.CreatedBy);
         }
 
         /*public void UpdatePicture(Picture postPicture)
@@ -59,18 +61,19 @@ namespace Infrastructure
 
         public void UpdatePost(FoundPetPost post)
         {
-            var toUpdate = _context.FoundPetPosts.FirstOrDefault(x => x.Id == post.Id) ?? throw new InvalidOperationException($"User with id {post.Id} not found");
+            var toUpdate = GetPost(post.Id);
+
             toUpdate.CreatedBy = post.CreatedBy;
-            toUpdate.Pictures = post.Pictures;
+            //toUpdate.Pictures = post.Pictures;
             toUpdate.Phone = post.Phone;
-            toUpdate.AvailabilityStart = post.AvailabilityStart;
-            toUpdate.AvailabilityEnd = post.AvailabilityEnd;
-            toUpdate.Comment = post.Comment;
+            toUpdate.Availability = post.Availability;
+            toUpdate.Details = post.Details;
             toUpdate.Address = post.Address;
             toUpdate.Latitude = post.Latitude;
             toUpdate.Longitude = post.Longitude;
             toUpdate.PostStatus = post.PostStatus;
             toUpdate.CipId = post.CipId;
+
             _context.SaveChanges();
         }
     }

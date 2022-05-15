@@ -76,26 +76,23 @@ namespace UnitTests
 		[TestMethod]
 		public async Task Given_IAmCalling_GetUserQuery_Then_ReturnOkStatusCode()
 		{
+			var userId = Guid.NewGuid();
 			_mockMediator
 				.Setup(m => m.Send(It.IsAny<GetUserQuery>(), It.IsAny<CancellationToken>()))
 				.ReturnsAsync(
 						new User
 						{
-							Id = new("D2743AC3-83A5-40A9-324D-08DA236C3BCC"),
+							Id = userId,
 							/*FirstName = "Jada",
 							LastName = "Picket,",
 							Email = "mail@example.com",
 							Phone = "0750000000",
 							Address = "Oradea"*/
-
 						});
 
-			Guid userId = new("D2743AC3-83A5-40A9-324D-08DA236C3BCC");
-
 			var result = await _target.GetById(userId);
-			//creates a task with a completed result (although await should have done the trick? but there was no result on var result)
-			var completedResult = Task.FromResult(result);
-			var okResult = completedResult.Result as OkObjectResult;
+
+			var okResult = result as OkObjectResult;
 
 			Assert.AreEqual((int)HttpStatusCode.OK, okResult.StatusCode);
 		}
@@ -122,12 +119,10 @@ namespace UnitTests
 
 			var result = await _target.GetById(userId);
 
-			var completedResult = Task.FromResult(result);
-
-			var okResult = completedResult.Result as OkObjectResult;
+			var okResult = result.Result as OkObjectResult;
 
 
-			Assert.AreEqual(user, actual: okResult.Value);
+			Assert.AreEqual(user, okResult);
 
 		}*/
 

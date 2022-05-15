@@ -4,6 +4,7 @@ using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(FindPetOwnerContext))]
-    partial class FindPetOwnerContextModelSnapshot : ModelSnapshot
+    [Migration("20220513075342_picturesOnPosts")]
+    partial class picturesOnPosts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,6 +97,10 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(15)
                         .HasColumnType("nvarchar(15)");
 
+                    b.Property<string>("Pictures")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("PostStatus")
                         .HasColumnType("int");
 
@@ -106,26 +112,6 @@ namespace Infrastructure.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("FoundPetPosts");
-                });
-
-            modelBuilder.Entity("Domain.Picture", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FoundPetPostId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FoundPetPostId");
-
-                    b.ToTable("Pictures");
                 });
 
             modelBuilder.Entity("FindPetOwner.User", b =>
@@ -199,22 +185,9 @@ namespace Infrastructure.Migrations
                     b.Navigation("CreatedBy");
                 });
 
-            modelBuilder.Entity("Domain.Picture", b =>
-                {
-                    b.HasOne("Domain.FoundPetPost", "Post")
-                        .WithMany("Pictures")
-                        .HasForeignKey("FoundPetPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Post");
-                });
-
             modelBuilder.Entity("Domain.FoundPetPost", b =>
                 {
                     b.Navigation("AssignedVolunteers");
-
-                    b.Navigation("Pictures");
                 });
 
             modelBuilder.Entity("FindPetOwner.User", b =>

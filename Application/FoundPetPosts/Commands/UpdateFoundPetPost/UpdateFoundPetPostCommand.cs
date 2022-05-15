@@ -12,12 +12,11 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
     public class UpdateFoundPetPostCommand: IRequest<FoundPetPost>
     {
         public Guid Id { get; set; }
-        public User CreatedBy { get; set; }
-        public List<Picture> Pictures { get; set; }
+        public Guid CreatedById { get; set; }
+        public string Pictures { get; set; }
         public string Phone { get; set; }
-        public DateTime AvailabilityStart { get; set; }
-        public DateTime AvailabilityEnd { get; set; }
-        public string Comment { get; set; }
+        public string Availability { get; set; }
+        public string Details { get; set; }
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }

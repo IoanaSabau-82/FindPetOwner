@@ -27,12 +27,10 @@ namespace Infrastructure.EntityConfigurations
 
             userConfiguration
                 .Property(p => p.FirstName)
-                .HasColumnName("First name")
                 .HasMaxLength(25);
 
             userConfiguration
                 .Property(p => p.LastName)
-                .HasColumnName("Last name")
                 .HasMaxLength(25);
 
             userConfiguration

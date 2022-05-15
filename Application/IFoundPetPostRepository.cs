@@ -10,9 +10,9 @@ namespace Application
     public interface IFoundPetPostRepository
     {
         IEnumerable<FoundPetPost> GetPosts();
+        IEnumerable<FoundPetPost> GetPostsByUser(Guid createdById);
         FoundPetPost GetPost(Guid id);
         void CreatePost(FoundPetPost post);
-        //void UpdatePicture(Picture postPicture);
         void UpdatePost(FoundPetPost post);
         void DeletePost(Guid id);
     }

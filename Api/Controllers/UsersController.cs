@@ -7,6 +7,7 @@ using Application.Users.Commands;
 using FindPetOwner;
 using Application.Users.Commands.CreateUser;
 using Application.Users.Queries;
+using Domain.Exceptions;
 
 namespace Api.Controllers
 {

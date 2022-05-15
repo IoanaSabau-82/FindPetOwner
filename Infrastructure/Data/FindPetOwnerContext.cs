@@ -21,6 +21,7 @@ namespace Infrastructure.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<FoundPetPost> FoundPetPosts { get; set; }
+        public DbSet<Picture> Pictures { get; set; }
         public DbSet<AssignedVolunteer> AssignedVolunteers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
