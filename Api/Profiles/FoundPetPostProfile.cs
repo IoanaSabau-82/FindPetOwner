@@ -16,7 +16,8 @@ namespace Api.Profiles
             CreateMap<FoundPetPost, FoundPetPostGetDto>()
                 .ReverseMap();
             CreateMap<User, PostCreatedByGetDto>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName));
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
             CreateMap<UserIdDto,User>()
                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ReverseMap();

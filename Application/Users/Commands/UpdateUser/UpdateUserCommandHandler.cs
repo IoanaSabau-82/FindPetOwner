@@ -28,7 +28,6 @@ namespace Application.Users.Commands.CreateUser
                 Email = command.Email,
                 Phone = command.Phone,
                 Address = command.Address,
-
             };
 
             _repository.UpdateUser(user);

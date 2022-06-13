@@ -7,10 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Domain;
 
-namespace Application.AssignedVolunteers.Queries
+namespace Application.FoundPetPosts.Queries
 {
-    public class GetAssignedVolunteerPostsQuery:IRequest<IEnumerable<AssignedVolunteer>>
+    public class GetOpenPostsQuery:IRequest<IEnumerable<FoundPetPost>>
     {
-        public Guid AssignedToId { get; set; }
     }
 }

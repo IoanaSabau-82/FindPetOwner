@@ -16,6 +16,7 @@ namespace FindPetOwner
         public string Phone { get ; set ; }
         //[MaxLength(50)]
         public string Address { get ; set; }
+
         //pt tema
         public ICollection<FoundPetPost> FoundPetPosts { get; set; }
         public ICollection<AssignedVolunteer> AssignedVolunteers { get; set; }

@@ -28,8 +28,8 @@ namespace Application.FoundPetPosts.Commands.CreateFoundPetPost
                 Availability = request.Availability,
                 Details = request.Details,
                 Address = request.Address,
-                Latitude = request.Latitude,
-                Longitude = request.Longitude,
+                Lat = request.Lat,
+                Lng = request.Lng,
                 PostStatus = request.PostStatus,
             };
 

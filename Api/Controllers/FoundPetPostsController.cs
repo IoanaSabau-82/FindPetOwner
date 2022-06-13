@@ -51,14 +51,11 @@ namespace Api.Controllers
 
 
         [HttpGet]
-        [Route("{createById}")]
+        [Route("posts/{createdById}")]
         public async Task<IActionResult> GetAllByUser(Guid createdById)
         {
             var query = new GetFoundPetPostsByUserQuery { CreatedById = createdById };
             var result = await _mediator.Send(query);
-
-            if (result == null)
-                return NotFound();
 
             var mappedResult = _mapper.Map<List<FoundPetPostGetDto>>(result);
             return Ok(mappedResult);
@@ -86,6 +83,16 @@ namespace Api.Controllers
             return Ok(mappedResult);
         }
 
+        /*[HttpGet]
+        public async Task<IActionResult> Getall(object search)
+        {
+            var query = new GetFoundPetPostsSearchQuery(search);
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<List<FoundPetPostGetDto>>(result);
+            return Ok(mappedResult);
+        }*/
+
+
         [HttpPut]
         [Route("{id}")]
         public async Task<IActionResult> UpdatePost(Guid id, [FromBody] FoundPetPostPutPostDto updated)
@@ -97,5 +104,6 @@ namespace Api.Controllers
 
             return NoContent();
         }
+
     }
 }

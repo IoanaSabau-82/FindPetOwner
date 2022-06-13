@@ -1,4 +1,6 @@
-﻿namespace Api.Dtos
+﻿using Domain;
+
+namespace Api.Dtos
 {
     public class UserGetDto
     {

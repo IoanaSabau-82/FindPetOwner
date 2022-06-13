@@ -1,6 +1,8 @@
 ﻿using Api.Dtos;
 using Application.AssignedVolunteers.Commands.CreateAssignedVolunteers;
+using Application.AssignedVolunteers.Commands.UpdateAssignedVolunteers;
 using Application.AssignedVolunteers.Queries;
+using Application.FoundPetPosts.Queries;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -39,22 +41,41 @@ namespace Api.Controllers
             var query = new GetAssignedVolunteerPostQuery { Id = id };
             var result = await _mediator.Send(query);
 
-            if (result == null)
-                return NotFound();
-
             var mappedResult = _mapper.Map<AssignedVolunteerGetDto>(result);
             return Ok(mappedResult);
         }
 
         [HttpGet]
-        [Route("posts/{AssignedToid}")]
-        public async Task<IActionResult> Getall(Guid AssignedToid)
+        [Route("posts/{assignedToId}")]
+        public async Task<IActionResult> Getall(Guid assignedToId)
         {
-            var query = new GetAssignedVolunteerPostsQuery { Id = AssignedToid };
+            var query = new GetAssignedVolunteerPostsQuery {AssignedToId = assignedToId };
             var result = await _mediator.Send(query);
-            var mappedResult = _mapper.Map<List<AssignedVolunteerByUserGetDto>>(result);
+            var mappedResult = _mapper.Map<List<AssignedVolunteerGetDto>>(result);
+           
             return Ok(mappedResult);
+        }
 
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> UpdateAssignment(Guid id, [FromBody] AssignedVolunteerPutPostDto updated)
+        {
+            var command = _mapper.Map<UpdateAssignedVolunteerCommand>(updated);
+            command.Id = id;
+
+            await _mediator.Send(command);
+
+            return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PostsForAssignments()
+        {
+            var query = new GetOpenPostsQuery();
+            var result = await _mediator.Send(query);
+            var mappedResult = _mapper.Map<List<FoundPetPostGetDto>>(result);
+            return Ok(mappedResult);
 
         }
     }

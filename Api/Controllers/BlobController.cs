@@ -5,6 +5,7 @@ using AutoMapper;
 using System.Net.Http.Headers;
 using Application;
 using Api.Dtos.FoundPetPosts;
+using Application.Services;
 
 namespace Api.Controllers
 {
@@ -18,6 +19,7 @@ namespace Api.Controllers
             this._blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
         }
 
+
         [HttpPost, DisableRequestSizeLimit]
         public async Task<IActionResult> UploadAsync()
         {
@@ -27,7 +29,7 @@ namespace Api.Controllers
             if (files.Any(f => f.Length == 0))
             {
                 return BadRequest();
-            }
+            }   
 
             var filesUrls = new List<PictureDto>();
 
@@ -41,6 +43,7 @@ namespace Api.Controllers
             return Ok(new { filesUrls });
         }
 
+
         [HttpGet]
         [Route("{blobName}")]
         public async Task<IActionResult> GetPicture(string pictureName)
@@ -51,21 +54,14 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("list")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllAsync()
         {
             return Ok(await _blobService.GetAllAsync());
         }
 
-        [HttpPost]
-        [Route("uploadFile")]
-        public async Task<IActionResult> UploadPicture([FromBody] UploadFileRequest request)
-        { 
-            await _blobService.UploadPictureAsync(request.FilePath, request.FileName);
-            return Ok();
-        }
 
         [HttpDelete]
-        [Route("{blobName}")]
+        [Route("{pictureName}")]
         public async Task<IActionResult> DeletePicture(string pictureName)
         {
             await _blobService.DeletePictureAsync(pictureName);

@@ -20,6 +20,13 @@ namespace Infrastructure.EntityConfigurations
                  .WithMany(x => x.AssignedVolunteers)
                  .HasForeignKey(x => x.PostId);
 
+            assignedVolunteerConfiguration
+                .HasOne(x => x.AssignedTo)
+                .WithMany(x => x.AssignedVolunteers)
+                .HasForeignKey(x => x.AssignedToId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+
         }
     }
 }

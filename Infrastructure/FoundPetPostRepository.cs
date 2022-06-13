@@ -38,41 +38,62 @@ namespace Infrastructure
 
         public FoundPetPost GetPost(Guid id)
         {
-            return _context.FoundPetPosts.Include(x => x.CreatedBy)
-                .FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
+            return _context.FoundPetPosts.Include(x => x.CreatedBy).Include(x=>x.Pictures)
+                .FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"post with id {id} was not found");
         }
 
         public IEnumerable<FoundPetPost> GetPosts()
         {
-            return _context.FoundPetPosts.Where(x => x.PostStatus != PostStatus.Closed).Include(x => x.CreatedBy);
+            return _context.FoundPetPosts.Where(x => x.PostStatus != PostStatus.Closed).Include(x => x.CreatedBy).Include(x => x.Pictures);
+        }
+
+        public IEnumerable<FoundPetPost> GetPostsForAssignments()
+        {
+            return _context.FoundPetPosts.Where(x => x.PostStatus == 0).Include(x => x.CreatedBy).Include(x => x.Pictures);
         }
 
         public IEnumerable<FoundPetPost> GetPostsByUser(Guid createdById)
         {
             return _context.FoundPetPosts.Where(x => x.PostStatus != PostStatus.Closed && x.CreatedBy.Id == createdById)
-                .Include(x => x.CreatedBy);
+                .Include(x => x.CreatedBy).Include(x => x.Pictures);
         }
-
-        /*public void UpdatePicture(Picture postPicture)
-        {
-            _context.Pictures.Update(postPicture);
-            _context.SaveChanges();
-        }*/
 
         public void UpdatePost(FoundPetPost post)
         {
             var toUpdate = GetPost(post.Id);
 
-            toUpdate.CreatedBy = post.CreatedBy;
-            //toUpdate.Pictures = post.Pictures;
+            if (toUpdate.Pictures != null)
+            {
+                foreach (var pic in toUpdate.Pictures)
+                {
+                    foreach (var pic1 in post.Pictures)
+                    {
+                        if (pic1.Url == pic.Url)
+                        {
+                            post.Pictures.Remove(pic);
+                        }
+                    }
+                }
+            }
+            toUpdate.CreatedById = post.CreatedById;
+            toUpdate.Pictures = post.Pictures;
             toUpdate.Phone = post.Phone;
             toUpdate.Availability = post.Availability;
             toUpdate.Details = post.Details;
             toUpdate.Address = post.Address;
-            toUpdate.Latitude = post.Latitude;
-            toUpdate.Longitude = post.Longitude;
+            toUpdate.Lat = post.Lat;
+            toUpdate.Lng = post.Lng;
             toUpdate.PostStatus = post.PostStatus;
             toUpdate.CipId = post.CipId;
+
+            _context.SaveChanges();
+        }
+
+        public void UpdatePostStatus(Guid id, int status)
+        {
+            var toUpdate = GetPost(id);
+
+            toUpdate.PostStatus = (PostStatus)status;
 
             _context.SaveChanges();
         }

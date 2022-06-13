@@ -30,27 +30,33 @@ namespace Infrastructure
 
         public void DeleteAssignment(Guid id)//see note in the IRepository
         {
-            var toDelete = _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
+            var toDelete = GetAssignment(id);
+            _context.AssignedVolunteers.Remove(toDelete);
             _context.SaveChanges();
         }
 
         public AssignedVolunteer GetAssignment(Guid id)
         {
-            //si aici va trbui selectata si postarea aferenta
-            return _context.AssignedVolunteers.FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
+            return _context.AssignedVolunteers.Include(x => x.AssignedTo).
+                Include(y => y.Post).ThenInclude(z=>z.CreatedBy).
+                FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"user with id {id} was not found");
         }
 
-        public IEnumerable<AssignedVolunteer> GetAssignmentsToPosts(Guid id)
+
+        public IEnumerable<AssignedVolunteer> GetAssignmentsToPosts(Guid assignedToId)
         {
-            return _context.AssignedVolunteers.Where(x => x.AssignedTo.Id == id);
-                //.Include(a => a.Post);
+            return _context.AssignedVolunteers
+                .Include(y => y.Post).ThenInclude(x=>x.CreatedBy)
+                .Include(y => y.Post).ThenInclude(x=>x.Pictures)
+                .Where(x => x.AssignedToId == assignedToId);
         }
+
 
         public void UpdateAssigned(AssignedVolunteer assignedVolunteer)
         {
-            var toUpdate = _context.AssignedVolunteers.FirstOrDefault(x => x.Id == assignedVolunteer.Id) ?? throw new InvalidOperationException($"Assignment with id {assignedVolunteer.Id} not found");
-            toUpdate.AssignedTo = assignedVolunteer.AssignedTo;
-            toUpdate.Post = assignedVolunteer.Post;
+            var toUpdate = GetAssignment(assignedVolunteer.Id);
+            toUpdate.AssignedToId = assignedVolunteer.AssignedToId;
+            toUpdate.PostId = assignedVolunteer.PostId;
             toUpdate.ScheduledTime = assignedVolunteer.ScheduledTime;
             toUpdate.AssignedStatus = assignedVolunteer.AssignedStatus;
             _context.SaveChanges();

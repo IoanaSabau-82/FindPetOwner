@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace Api.Dtos
 {
@@ -29,5 +30,6 @@ namespace Api.Dtos
         [Required]
         [MaxLength(50)]
         public string Address { get; set; }
+
     }
 }

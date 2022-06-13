@@ -24,15 +24,16 @@ namespace Application.FoundPetPosts.Commands.UpdateFoundPetPost
             var post = new FoundPetPost
             {
                 Id = request.Id,
-                CreatedBy = _userRepository.GetUser(request.CreatedById),
-                //Pictures = request.Pictures,
+                CreatedById = request.CreatedById,
+                Pictures = request.Pictures,
                 Phone = request.Phone,
                 Availability = request.Availability,
                 Details = request.Details,
                 Address = request.Address,
-                Latitude = request.Latitude,
-                Longitude = request.Longitude,
+                Lat = request.Lat,
+                Lng = request.Lng,
                 PostStatus = request.PostStatus,
+                CipId = request.CipId,
             };
 
             _repository.UpdatePost(post);

@@ -31,7 +31,7 @@ namespace Infrastructure.EntityConfigurations
                 .HasMany(x => x.AssignedVolunteers)
                 .WithOne(x => x.Post)
                 .HasForeignKey(x => x.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
         }
     }

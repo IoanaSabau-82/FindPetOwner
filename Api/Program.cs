@@ -9,6 +9,7 @@ using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.FileProviders;
+using Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,7 @@ builder.Services.AddScoped<IFoundPetPostRepository, FoundPetPostRepository>();
 builder.Services.AddScoped<IAssignedVolunteerRepository, AssignedVolunteerRepository>();
 builder.Services.AddDbContext<FindPetOwnerContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
-builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetValue<string>("AzureStorage")));
+builder.Services.AddSingleton(x => new BlobServiceClient(builder.Configuration.GetConnectionString("AzureStorage")));
 builder.Services.AddScoped<IBlobService, BlobService>();
 builder.Services.AddCors();
 //To avoid the MultiPartBodyLength 

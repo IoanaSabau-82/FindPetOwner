@@ -14,8 +14,6 @@ namespace Api.Profiles
             CreateMap<AssignedVolunteerPutPostDto, CreateAssignedVolunteerCommand>();
             CreateMap<AssignedVolunteer, AssignedVolunteerGetDto>()
                 .ReverseMap();
-            CreateMap<AssignedVolunteer, AssignedVolunteerByUserGetDto>()
-                .ReverseMap();
             CreateMap<AssignedVolunteerPutPostDto, UpdateAssignedVolunteerCommand>();
             CreateMap<UserIdDto, User>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

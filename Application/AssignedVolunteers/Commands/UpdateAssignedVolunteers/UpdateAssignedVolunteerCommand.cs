@@ -11,8 +11,9 @@ namespace Application.AssignedVolunteers.Commands.UpdateAssignedVolunteers
 {
     public class UpdateAssignedVolunteerCommand: IRequest<AssignedVolunteer>
     {
-        public User AssignedTo { get; set; }
-        public FoundPetPost Post { get; set; }
+        public Guid Id { get; set; }
+        public Guid AssignedToId { get; set; }
+        public Guid PostId { get; set; }
         public DateTime ScheduledTime { get; set; }
         public AssignedStatus AssignedStatus { get; set; }
 

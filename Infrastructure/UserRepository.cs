@@ -36,7 +36,7 @@ namespace Infrastructure
 
         public void UpdateUser(User user)
         {
-            var toUpdate = GetUser(user.Id); //it's ok or should I use the old query?
+            var toUpdate = GetUser(user.Id);
 
             toUpdate.FirstName = user.FirstName;
             toUpdate.LastName = user.LastName;

@@ -20,7 +20,7 @@ namespace Application.AssignedVolunteers.Queries
 
         public Task<IEnumerable<AssignedVolunteer>> Handle(GetAssignedVolunteerPostsQuery query, CancellationToken cancellationToken)
         {
-            var result = _repository.GetAssignmentsToPosts(query.Id);
+            var result = _repository.GetAssignmentsToPosts(query.AssignedToId);
             return Task.FromResult(result);
         }
     }

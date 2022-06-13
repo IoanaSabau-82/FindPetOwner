@@ -12,8 +12,8 @@ namespace Api.Dtos
         public string Availability { get; set; }
         public string Details { get; set; }
         public string Address { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
+        public double Lat { get; set; }
+        public double Lng { get; set; }
         public PostStatus PostStatus { get; set; }
         public long CipId { get; set; }
     }

@@ -9,7 +9,7 @@ namespace Application
 {
     public interface IAssignedVolunteerRepository
     {
-        IEnumerable<AssignedVolunteer> GetAssignmentsToPosts(Guid id);
+        IEnumerable<AssignedVolunteer> GetAssignmentsToPosts(Guid assignedToId);
         AssignedVolunteer GetAssignment(Guid id);
         void CreateAssigned(AssignedVolunteer assignedVolunteer);
         void UpdateAssigned(AssignedVolunteer assignedVolunteer);
